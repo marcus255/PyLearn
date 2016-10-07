@@ -15,6 +15,7 @@ def receiving(name, sock):
                 dataStr = str(data.decode())
                 print(dataStr)
         except:
+            time.sleep(0.01)
             pass
         finally:
             tLock.release()
@@ -31,14 +32,16 @@ rT = threading.Thread(target=receiving, args=("RecvThread", s))
 rT.start()
 
 alias = input("Name: ")
-message = input(alias + '->')
+message = input('')
 while message != 'q':
+
+
     if message != '':
         s.sendto((alias + ': ' + message).encode(), server)
-    tLock.acquire()
-    message = input(alias + '-> ')
-    tLock.release()
-    time.sleep(0.2)
+    # tLock.acquire()
+    message = input('')
+    # tLock.release()
+    time.sleep(0.01)
 
 shutdown = True
 rT.join()

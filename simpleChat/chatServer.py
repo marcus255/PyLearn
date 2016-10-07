@@ -24,7 +24,10 @@ while not quitting:
             clients.append(addr)
         print(time.ctime(time.time()) + str(addr) + " " + dataStr)
         for client in clients:
-            s.sendto(data, client)
+            if client != addr:
+                s.sendto(data, client)
+                print("sending to " + str(client))
     except:
+        time.sleep(0.01)
         pass
 s.close()
